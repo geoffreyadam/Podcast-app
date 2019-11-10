@@ -1,3 +1,6 @@
+body{
+  background-color:#261332;
+}
 .App {
   text-align: center;
 }
@@ -19,4 +22,74 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+button{
+  background-color:#FFD729;
+  border:none;
+  text-transform: uppercase;
+  padding:10px 40px;
+  color:#000000;
+  font-weight: bold;
+  border-radius:100px;
+  transition: all ease 0.35s;
+  cursor:pointer;
+  height: 35px;
+}
+button:hover{
+  background-color:#FF7600;
+}
+button:focus{
+  outline: none;
+}
+
+.modal{
+  z-index:10;
+  width: 100%;
+  height: 100%;
+  display:flex;
+  background: linear-gradient(#FFD729, #FFA000);
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: absolute;
+  height: 150px;
+  bottom: -150px;
+}
+.modal_active{
+  bottom: 0px;
+  transition: all ease 0.25s;
+}
+.modal section{
+  flex-basis: 100%;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: center;
+}
+.displayedTrack{
+  list-style: none;
+  width: 50px;
+  height: 50px;
+  background-color: grey;
+}
+
+
+
+.audioFilesList{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+.audioFilesList div{
+  background-color: #FFD729;
+  color:black;
+  height:100px;
+  width: 100px;
+  margin: 10px;
+  border-radius:15px;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
