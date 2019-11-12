@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import newState from './newState';
+import podcasts from './savePodcast';
+import openModal from './openModal';
 
 export default combineReducers({
-  newState: newState
+  podcasts,
+  openModal
 })

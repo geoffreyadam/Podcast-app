@@ -2,14 +2,10 @@ import React,  { useState } from 'react';
 import { connect } from 'react-redux';
 import MusicPlayer from 'react-responsive-music-player';
 
+const AudioFilesList = ({openModal}) => {
 
-
-
-
-const AudioFilesList = ({newState}) => {
-
-    const [play, setPlay] = useState(false);
-    const [pause, setPause] = useState(true);
+    const [setPlay] = useState(false);
+    const [setPause] = useState(true);
     const [url, setUrl] = useState(true);
     const [audio, setAudio] = useState(true);
 
@@ -38,22 +34,21 @@ const AudioFilesList = ({newState}) => {
     //     this.audio.pause();
     // }
 
-    const AudioFiles = newState.map((file, i) => 
-        <div key={i}>
-            <li value={file} onClick={() => playFile(file)}>Play track</li>
-        </div>
-    );
+//     const AudioFiles = openModal.map((file, i) => 
+//         <div key={i}>
+// <li value={file} onClick={() => playFile(file)}>Play track{file.text}</li>
+//         </div>
+//     );
     return (
         <React.Fragment>
             <section className="audioFilesList">
-                {AudioFiles}
+                {/* {AudioFiles} */}
                 <MusicPlayer playlist={playlist} />
                 {/* {AudioFiles.map((task, index) => {
                     const front = 
                         <div key={index}>
                             <span>{task.text}</span>
                         </div> 
-
                     return front;
                 } */}
             </section>
@@ -62,7 +57,7 @@ const AudioFilesList = ({newState}) => {
 }
 
   const mapStateToProps = (state) => ({
-    newState: state.newState
+    openModal: state.openModal
   })
   
 

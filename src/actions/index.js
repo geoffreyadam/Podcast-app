@@ -1,6 +1,10 @@
-export const addNewState = (text) => ({
-  type: 'ADD_STATE',
+export const savePodcast = (url) => ({
+  type: 'SAVE_PODCAST',
   payload: {
-    text
+    url
   }
+})
+
+export const openModal = () => ({
+  type: 'OPEN_MODAL',
 })

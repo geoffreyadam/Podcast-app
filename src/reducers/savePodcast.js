@@ -1,10 +1,10 @@
-const newState = (state = [], action) => {
+const podcasts = (state = [], action) => {
     switch (action.type) {
-      case 'ADD_STATE':
+      case 'SAVE_PODCAST':
         return[
           ...state,
           {
-            text: action.payload.text
+            url: action.payload.url
           }
         ]
       default:
@@ -12,4 +12,4 @@ const newState = (state = [], action) => {
     }
   }
   
-  export default newState
+  export default podcasts

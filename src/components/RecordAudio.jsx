@@ -1,34 +1,39 @@
 import React from 'react';
-import ModalRecordAudio from './ModalRecordAudio.jsx';
+import { connect } from 'react-redux'
+import { openModal } from '../actions/index'
+import ModalRecordAudio from './ModalRecordAudio';
+// import ModalRecordAudio from './ModalRecordAudio.jsx';
 
-export default class RecordAudio extends React.PureComponent {
-    constructor(props) {
-      super(props);
-      this.state = {
-        startRecord: false
-      };
-      // this.openRecordModal = this.openRecordModal.bind(this);
-    }
-    
-    openRecordModal(){
-      this.setState((prevState) =>  ({startRecord: !prevState.startRecord}))
-    }
+  const RecordAudio = ({openModal, changeOpenModal}) => {
 
-    renderButton() {
-      if(this.state.startRecord === true) {
-        const active = this.state.startRecord
-        return (
-          <ModalRecordAudio active={active} />
-        );
+    function IsModalOpen() {
+      if (openModal === false) {
+        return <>
+            <button onClick={()=> changeOpenModal()}>Start a recording session</button>
+        </>;
+      }else{
+        return <>
+          <ModalRecordAudio />
+        </>;
       }
     }
-
-    render() {
-      return (
-        <div>
-            <button onClick={() => this.openRecordModal()}>Record</button>
-            {this.renderButton()}
+    
+    return (
+        <div className="App">
+          <IsModalOpen />
         </div>
-      );
-    }
-  }
+    );
+}
+
+const mapStateToProps = (state) => ({
+  openModal: state.openModal
+})
+
+const mapDispatchToProps = dispatch => ({
+  changeOpenModal: status => dispatch(openModal(status))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RecordAudio)
