@@ -1,64 +1,71 @@
 import React,  { useState } from 'react';
 import { connect } from 'react-redux';
-import MusicPlayer from 'react-responsive-music-player';
+import ReactJkMusicPlayer from "react-jinke-music-player";
+import "react-jinke-music-player/assets/index.css";
 
-const AudioFilesList = ({openModal}) => {
+const AudioFilesList = ({openModal, podcasts}) => {
 
     const [setPlay] = useState(false);
     const [setPause] = useState(true);
-    const [url, setUrl] = useState(true);
+    const [url, setUrl] = useState("");
     const [audio, setAudio] = useState(true);
 
-    const playFile = (url) =>{
-        setPlay(true);
-        setPause(false);
-        setUrl(url);
-        setAudio(new Audio(url));
-        audio.playFile();
-    }
-
-    const playlist = [
-        {
-          url: url[0],
-          cover: 'path/to/jpg',
-          title: 'Despacito',
-          artist: [
-            'Luis Fonsi',
-            'Daddy Yankee'
-          ]
-        }
-      ]
-
+    // const playFile = (url) =>{
+    //     setPlay(true);
+    //     setPause(false);
+    //     setUrl(url);
+    //     setAudio(new Audio(url));
+    //     audio.playFile();
+    // }
     // const pauseFile = event =>{
     //     this.setState({ play: false, pause: true });
     //     this.audio.pause();
     // }
 
-//     const AudioFiles = openModal.map((file, i) => 
-//         <div key={i}>
-// <li value={file} onClick={() => playFile(file)}>Play track{file.text}</li>
-//         </div>
-//     );
+    console.log(podcasts);
+
+    if(podcasts.length > 0){
+      console.log()
+      if(url != podcasts[0].url){
+        setUrl(podcasts[0].url)
+      }
+    }
+
+    const options = {
+      //audio lists model
+      audioLists: [
+        {
+          name: 'Your Podcast',
+          singer: 'You',
+          musicSrc: url
+        }
+      ]
+    }
+
+
+
+      const AudioFiles = podcasts.map((file, i) => 
+        <div key={i}>
+          <li>Play podcast</li>
+        </div>
+        );
+
     return (
         <React.Fragment>
             <section className="audioFilesList">
-                {/* {AudioFiles} */}
-                <MusicPlayer playlist={playlist} />
-                {/* {AudioFiles.map((task, index) => {
-                    const front = 
-                        <div key={index}>
-                            <span>{task.text}</span>
-                        </div> 
-                    return front;
-                } */}
+            <ReactJkMusicPlayer {...options} />,
+
+            <ul>
+                {AudioFiles}
+            </ul>
             </section>
         </React.Fragment>
     );
 }
 
-  const mapStateToProps = (state) => ({
-    openModal: state.openModal
-  })
+const mapStateToProps = (state) => ({
+  podcasts: state.podcasts
+})
   
 
   export default connect(

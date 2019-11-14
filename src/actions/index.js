@@ -5,6 +5,9 @@ export const savePodcast = (url) => ({
   }
 })
 
-export const openModal = () => ({
+export const openModal = (modalOpen) => ({
   type: 'OPEN_MODAL',
+  payload: {
+    modalOpen
+  }
 })

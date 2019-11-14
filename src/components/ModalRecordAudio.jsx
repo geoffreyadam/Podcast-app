@@ -5,9 +5,12 @@ import { openModal } from "../actions/index";
 import { savePodcast } from "../actions/index";
 
 
-const RecordAudioModal = ({podcasts, savePodcast, changeOpenModal}) => {
+const RecordAudioModal = ({savePodcast}) => {
 
+  const [podcastInfo, setpodcastInfo] = useState(false);
+  const [podcastName, setPodcastName] = useState("");
   const [record, setRecord] = useState(false);
+
 
     const startRecording = () => {
       setRecord(true);
@@ -19,8 +22,27 @@ const RecordAudioModal = ({podcasts, savePodcast, changeOpenModal}) => {
     const onStop = (recordedBlob) => {
       savePodcast(recordedBlob.blobURL)
     }
-  
-    function IsRecording() {
+
+
+    function GetInfo(){
+      return <>
+        <h2>Name your podcast</h2>
+        <form action="submit">
+          <div>
+            <label htmlFor="podcastName">Nom du podcast</label>
+            <input name="podcastName" type="text"></input>
+          </div>
+          <div>
+            <label htmlFor="authors">Nom du podcast</label>
+            <input name="authors" type="text"></input>
+          </div>
+          <input value="Commencer l'enregistrement" />
+        </form>
+      </>
+
+    }
+
+    function StartRecord() {
       if (record === false) {
         return <>
           <button onClick={startRecording} type="button">Record</button>
@@ -31,24 +53,32 @@ const RecordAudioModal = ({podcasts, savePodcast, changeOpenModal}) => {
         </>;
       }
     }
+
+    function DisplayPodcastRecord(){
+      if(podcastInfo === true){
+        return <>
+          <GetInfo />
+        </>
+      }else{
+        return <>
+            <ReactMic
+            record={record}
+            className="sound-wave"
+            onStop={onStop}
+            // onData={onData}
+            strokeColor="#FFD729"
+            backgroundColor="#FF7600" />
+            <section>
+              <StartRecord />
+            </section>
+
+        </>
+      }
+    }
     
   return (
         <div className="modal-ctn">
-          <div className="modal modal_active">
-            <ReactMic
-              record={record}
-              className="sound-wave"
-              onStop={onStop}
-              // onData={onData}
-              strokeColor="#FFD729"
-              backgroundColor="#FF7600" />
-              <section>
-                <IsRecording />
-              </section>
-              <section>
-                <button onClick={()=> changeOpenModal()}>End this recording session</button>
-              </section>
-          </div>
+                <DisplayPodcastRecord />
         </div>
   );
 }
