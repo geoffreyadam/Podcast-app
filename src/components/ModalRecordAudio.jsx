@@ -7,8 +7,6 @@ import { savePodcast } from "../actions/index";
 
 const RecordAudioModal = ({savePodcast}) => {
 
-  const [podcastInfo, setpodcastInfo] = useState(false);
-  const [podcastName, setPodcastName] = useState("");
   const [record, setRecord] = useState(false);
 
 
@@ -23,25 +21,6 @@ const RecordAudioModal = ({savePodcast}) => {
       savePodcast(recordedBlob.blobURL)
     }
 
-
-    function GetInfo(){
-      return <>
-        <h2>Name your podcast</h2>
-        <form action="submit">
-          <div>
-            <label htmlFor="podcastName">Nom du podcast</label>
-            <input name="podcastName" type="text"></input>
-          </div>
-          <div>
-            <label htmlFor="authors">Nom du podcast</label>
-            <input name="authors" type="text"></input>
-          </div>
-          <input value="Commencer l'enregistrement" />
-        </form>
-      </>
-
-    }
-
     function StartRecord() {
       if (record === false) {
         return <>
@@ -53,33 +32,20 @@ const RecordAudioModal = ({savePodcast}) => {
         </>;
       }
     }
-
-    function DisplayPodcastRecord(){
-      if(podcastInfo === true){
-        return <>
-          <GetInfo />
-        </>
-      }else{
-        return <>
-            <ReactMic
-            record={record}
-            className="sound-wave"
-            onStop={onStop}
-            // onData={onData}
-            strokeColor="#FFD729"
-            backgroundColor="#FF7600" />
-            <section>
-              <StartRecord />
-            </section>
-
-        </>
-      }
-    }
     
   return (
-        <div className="modal-ctn">
-                <DisplayPodcastRecord />
-        </div>
+    <div className="modal-ctn">
+      <ReactMic
+        record={record}
+        className="sound-wave"
+        onStop={onStop}
+        // onData={onData}
+        strokeColor="#FFD729"
+        backgroundColor="#FF7600" />
+        <section>
+          <StartRecord />
+        </section>
+    </div>
   );
 }
 

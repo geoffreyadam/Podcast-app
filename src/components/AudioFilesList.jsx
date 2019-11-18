@@ -1,74 +1,55 @@
 import React,  { useState } from 'react';
 import { connect } from 'react-redux';
-import ReactJkMusicPlayer from "react-jinke-music-player";
-import "react-jinke-music-player/assets/index.css";
+import {openPodcastModal} from "../actions/index";
+import ModalPocast from './ModalPodcast.jsx';
 
-const AudioFilesList = ({openModal, podcasts}) => {
+const AudioFilesList = ({podcasts, openPodcastModal, changeOpenPodcastModal}) => {
 
-    const [setPlay] = useState(false);
-    const [setPause] = useState(true);
     const [url, setUrl] = useState("");
-    const [audio, setAudio] = useState(true);
-
-    // const playFile = (url) =>{
-    //     setPlay(true);
-    //     setPause(false);
-    //     setUrl(url);
-    //     setAudio(new Audio(url));
-    //     audio.playFile();
-    // }
-    // const pauseFile = event =>{
-    //     this.setState({ play: false, pause: true });
-    //     this.audio.pause();
-    // }
-
-    console.log(podcasts);
 
     if(podcasts.length > 0){
-      console.log()
-      if(url != podcasts[0].url){
+      if(url !== podcasts[0].url){
         setUrl(podcasts[0].url)
       }
     }
 
-    const options = {
-      //audio lists model
-      audioLists: [
-        {
-          name: 'Your Podcast',
-          singer: 'You',
-          musicSrc: url
-        }
-      ]
-    }
-
-
-
-      const AudioFiles = podcasts.map((file, i) => 
-        <div key={i}>
+      const AudioFiles = podcasts.map((url, i) => {
+        return <div onClick={() => changeOpenPodcastModal(url.url)} key={i}>
           <li>Play podcast</li>
         </div>
-        );
+        });
+
+    const ShowPodcastModal = () => {
+      if(openPodcastModal !== false){
+        return <ModalPocast />
+      }else{
+        return false
+      }
+    }
 
     return (
         <React.Fragment>
             <section className="audioFilesList">
-            <ReactJkMusicPlayer {...options} />,
-
             <ul>
                 {AudioFiles}
             </ul>
+            <ShowPodcastModal />
             </section>
         </React.Fragment>
     );
 }
 
 const mapStateToProps = (state) => ({
-  podcasts: state.podcasts
+  podcasts: state.podcasts,
+  openPodcastModal: state.openPodcastModal
+})
+
+const mapDispatchToProps = dispatch => ({
+  changeOpenPodcastModal: audioFile => dispatch(openPodcastModal(audioFile))
 })
   
 
   export default connect(
     mapStateToProps,
-
+    mapDispatchToProps
   )(AudioFilesList)

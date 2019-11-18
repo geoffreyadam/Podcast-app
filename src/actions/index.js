@@ -11,3 +11,10 @@ export const openModal = (modalOpen) => ({
     modalOpen
   }
 })
+
+export const openPodcastModal = (audioFile) => ({
+  type: 'OPEN_PODCAST',
+  payload: {
+    audioFile
+  }
+})
