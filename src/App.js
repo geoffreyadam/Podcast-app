@@ -4,6 +4,7 @@ import './App.css';
 import Menu from "./components/Menu.jsx";
 import ModalRecordAudio from "./components/ModalRecordAudio.jsx";
 import AudioFilesList from "./components/AudioFilesList.jsx";
+import AudioIndex from "./components/Microphone/index";
 
   const App = ({openModal, openPodcasts}) => {
 
@@ -29,6 +30,7 @@ import AudioFilesList from "./components/AudioFilesList.jsx";
         <div className="App">
           <Menu />
           <DisplayApp />
+          <AudioIndex/>
         </div>
     );
 }
